@@ -41,6 +41,9 @@ public class SauceDemoTests {
     	System.out.println("Label Products not found until 10 seconds");
     	Assert.fail("Login page not found within 10 seconds hence failing test case");
     }
+ finally {
+    	ScreenshotUtil.takeScreenshot(driver, "openWebsitetest");
+    }
     }
     
     @Test(dependsOnMethods={"openWebsite"})
@@ -56,6 +59,9 @@ public class SauceDemoTests {
     	catch(TimeoutException te) {
     		System.out.println("item not added to cart");
     		Assert.fail("Item not added to cart");
+    	}
+		finally {
+    		ScreenshotUtil.takeScreenshot(driver, "addItemsToCart");
     	}
     }
     
