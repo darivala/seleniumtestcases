@@ -12,6 +12,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 
 public class SauceDemoTests {
 	WebDriver driver;
@@ -41,9 +43,6 @@ public class SauceDemoTests {
     	System.out.println("Label Products not found until 10 seconds");
     	Assert.fail("Login page not found within 10 seconds hence failing test case");
     }
- finally {
-    	ScreenshotUtil.takeScreenshot(driver, "openWebsitetest");
-    }
     }
     
     @Test(dependsOnMethods={"openWebsite"})
@@ -60,11 +59,18 @@ public class SauceDemoTests {
     		System.out.println("item not added to cart");
     		Assert.fail("Item not added to cart");
     	}
-		finally {
-    		ScreenshotUtil.takeScreenshot(driver, "addItemsToCart");
-    	}
     }
-    
+        @AfterMethod
+    public void takeScreenshot(ITestResult result) {
+        // take screenshot if test failed
+        if (!result.isSuccess()) {
+        	ScreenshotUtil.takeScreenshot(driver, result.getName() + "_Failed");
+        }
+        // always capture last screen
+        ScreenshotUtil.takeScreenshot(driver, result.getName() + "_LastScreen");
+        
+    }
+	
     @AfterClass
     public void tearDown() throws InterruptedException {
     	Thread.sleep(2000);
