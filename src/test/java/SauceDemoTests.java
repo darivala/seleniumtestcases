@@ -23,7 +23,8 @@ public class SauceDemoTests {
 	@BeforeClass
 	public void setup() {
 		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--headless=new");
+		//options.addArguments("--headless=new");
+		options.addArguments("--start-maximized");
 		options.addArguments("--disable-gpu");
 		options.addArguments("--window-size=1920,1080");
 		driver = new ChromeDriver(options);
