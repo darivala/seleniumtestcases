@@ -28,6 +28,7 @@ public class SauceDemoTests {
 		options.addArguments("--disable-gpu");
 		options.addArguments("--window-size=1920,1080");
 		driver = new ChromeDriver(options);
+		System.out.println("Chrome options: " + options.toString());
 		wait = new WebDriverWait(driver,Duration.ofSeconds(10));
 		driver.get("https://www.saucedemo.com/");
 	
